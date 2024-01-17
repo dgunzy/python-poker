@@ -1,0 +1,36 @@
+
+ok so what i'll have you do is rank all the dealt pat badugis from 1 to whatever number the bottom is, but with a few parameters
+
+we already know the player has a pat badugi so we can actually ignore the suits because we are only looking at the portion of range that is also a badugi
+
+which means we also ignore all hands with a pair in them
+
+then the further constraints are as follows: If the hand has a King, it must also have 3 cards 8 and lower (Ace counts as low)
+
+if the hand has a queen , it must either have 3 cards 8 and lower, or a nine with two cards 5 and lower
+
+all other dealt badugis count
+
+so JT98 is ok , as is Q876 as is Q954 , but Q973 and K93A would not be eligible
+
+then I would want your output to group all the combinations by their highest card
+
+IE there is just one combination of a "4" - 432A
+
+then there are 4 combinations of 5 : 532A, 542A, 543A, 5432
+
+and so on
+
+ace is always low
+
+lmk if you need clarification on any of it
+
+and ultimately i'd want to be able to access both the list of badugis, as well as have access to the # of combos of each "top card"
+
+BADUGI RULES
+
+- lowest 4 card hard
+- three draws
+- A - 4 worst and winning hand
+- Suits count, if you dont have 4 different you auto lose to a badugi
+- THen its ranked by cards, a 8s5s4c3d hand is a 3 card hand
