@@ -56,7 +56,9 @@ def group_by_highest_card(combinations):
 
 def main():
     pat_badugis = generate_badugi_combinations()
-    grouped_combinations = group_by_highest_card(pat_badugis)
+    sorted_badugis = sorted(pat_badugis, key=lambda x: (x[3], x[2], x[1], x[0]))
+
+    grouped_combinations = group_by_highest_card(sorted_badugis)
 
     for card, combos in sorted(grouped_combinations.items()):
         new_combos = []

@@ -57,20 +57,24 @@ def group_by_highest_card(combinations):
 
 def main():
     pat_badugis = generate_badugi_combinations()
-    grouped_combinations = group_by_highest_card(pat_badugis)
+    
+    # Pre-sort the combinations based on the logic you want
+    sorted_badugis = sorted(pat_badugis, key=lambda x: (x[3], x[2], x[1], x[0]))
 
-    cards = []
-    combinations_count = []
+    grouped_combinations = group_by_highest_card(sorted_badugis)
 
-    for card, combos in sorted(grouped_combinations.items()):
-        cards.append(card)
-        combinations_count.append(len(combos))
+    # Extract x and y coordinates for plotting
+    x_coords = list(range(1, 14))
+    y_coords = [len(grouped_combinations.get(card, [])) for card in x_coords]
 
-    plt.bar(cards, combinations_count, color='skyblue')
+    # Plotting
+    plt.bar(x_coords, y_coords, tick_label=x_coords)
     plt.xlabel('Highest Card')
     plt.ylabel('Number of Combinations')
-    plt.title('Number of Badugi Combinations by Highest Card')
+    plt.title('Badugi Combinations')
+
     plt.show()
+
 
 if __name__ == "__main__":
     main()
