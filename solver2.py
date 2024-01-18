@@ -1,5 +1,12 @@
 from itertools import combinations
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+import csv
+
+def export_to_csv(data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        csv_writer.writerow(['Highest Card', 'Combinations'])
+        csv_writer.writerows(data)
 
 def is_eligible_badugi(hand):
     ranks = list(range(1, 14))  # Ace to King represented by 1 to 13
@@ -57,24 +64,19 @@ def group_by_highest_card(combinations):
 
 def main():
     pat_badugis = generate_badugi_combinations()
-    
-    # Pre-sort the combinations based on the logic you want
     sorted_badugis = sorted(pat_badugis, key=lambda x: (x[3], x[2], x[1], x[0]))
 
     grouped_combinations = group_by_highest_card(sorted_badugis)
 
-    # Extract x and y coordinates for plotting
-    x_coords = list(range(1, 14))
-    y_coords = [len(grouped_combinations.get(card, [])) for card in x_coords]
+    data_for_csv = []
 
-    # Plotting
-    plt.bar(x_coords, y_coords, tick_label=x_coords)
-    plt.xlabel('Highest Card')
-    plt.ylabel('Number of Combinations')
-    plt.title('Badugi Combinations')
+    for _, combos in sorted(grouped_combinations.items()):
+        new_combos = [' '.join(str(c) if c not in {1, 11, 12, 13} else 'A' if c == 1 else 'J' if c == 11 else 'Q' if c == 12 else 'K' for c in combo) for combo in combos]
+        data_for_csv.append([', '.join(new_combos)])
+        print(f'{", ".join(new_combos)}')
 
-    plt.show()
-
+    # Export data to CSV
+    export_to_csv(data_for_csv, 'badugi_combinations1.csv')
 
 if __name__ == "__main__":
     main()
